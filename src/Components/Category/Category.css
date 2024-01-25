@@ -1,0 +1,66 @@
+.section-category{
+    /*padding-top: 65px!important;*/
+}
+.origin-title{
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.img-swiper{
+    width: 200px;
+    height: auto;
+    cursor: pointer;
+    transition:all .5s ease-in-out ;
+    -webkit-transition:all .5s ease-in-out ;
+    -moz-transition:all .5s ease-in-out ;
+    -ms-transition:all .5s ease-in-out ;
+    -o-transition:all .5s ease-in-out ;
+}
+
+
+.swiper-img{
+    position: relative;
+    
+}
+.swiper-img:hover .img-swiper{
+    /*content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    */
+    transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    z-index: 1;
+} 
+
+.text-blok{
+    position: absolute;
+    bottom: 150px;
+    right: 0;
+}
+.mySwiper{
+    position: relative!important;
+    
+    
+
+}
+.button-next-slide{
+    position: absolute!important;
+    top: 3px!important;
+    right: 600px!important;
+    z-index: 1;
+color: red!important;
+cursor: pointer;
+}
+.button-prev-slide{
+    position: absolute;
+    top: 3px!important;
+    left: 600px;
+    color: red!important;
+    z-index: 1;
+    cursor: pointer;
+}

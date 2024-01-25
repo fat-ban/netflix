@@ -1,0 +1,19 @@
+.detail-movie{
+    padding-top: 50px;
+    padding-bottom: 35px;
+}
+.td-raiting{
+    /*background-color: transparent!important;*/
+}
+.banner-moviedetail{
+    
+}
+.title-err{
+    transform: translateY(120px);
+    -webkit-transform: translateY(120px);
+    -moz-transform: translateY(120px);
+    -ms-transform: translateY(120px);
+    -o-transform: translateY(120px);
+
+
+}
