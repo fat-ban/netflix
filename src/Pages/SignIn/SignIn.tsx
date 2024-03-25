@@ -1,25 +1,23 @@
-import "./SignUp.css";
-
+import "./SignIn.css";
 
 import imgbg from "../../assets/imgbg.jpg";
 
-import SignUpForm from "../../Components/SignUpForm/SignUpForm";
+import SignInForm from "../../Components/SignInForm/SignInForm";
 
-const SignUp = () => {
+const SignIn = () => {
     return (
-        <div className='signup w-100  d-flex justify-content-center align-items-center' style={{
+        <div className='signin w-100 d-flex justify-content-center align-items-center' style={{
             height: "100vh",
-            backgroundImage: `url(${imgbg})`,
+        backgroundImage: `url(${imgbg})`,
         //height:"100vh",
                 backgroundPosition: "center center",
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
                 overflow: "hidden",
-               
         }}>
-            <SignUpForm/>
+            <SignInForm/>
         </div>
     )
 }
 
-export default SignUp;
+export default SignIn;

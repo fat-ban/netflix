@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
-//import {Button,Form} from 'react-bootstrap';
+import {useState,useEffect} from 'react'
+import {Button,Form} from 'react-bootstrap';
 import avatar from "../../assets/avatar.png";
 
-import "./NavBar.css";
+import "./NavBar.css"
 //router
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom"
 
 const NavBar = () => {
 const [color, setColor] = useState<boolean>(false)

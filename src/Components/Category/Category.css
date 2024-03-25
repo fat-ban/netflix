@@ -8,8 +8,9 @@
 }
 
 .img-swiper{
-    width: 200px;
-    height: auto;
+    width: 200px!important;
+    /*height: auto;*/
+    height: 200px!important;
     cursor: pointer;
     transition:all .5s ease-in-out ;
     -webkit-transition:all .5s ease-in-out ;

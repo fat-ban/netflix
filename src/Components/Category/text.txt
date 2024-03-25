@@ -1,0 +1,55 @@
+ <Swiper
+          breakpoints={{
+            320: { slidesPerView: 2, spaceBetween: 80 },
+            480: { slidesPerView: 3, spaceBetween: 150 },
+            768: { slidesPerView: 4, spaceBetween: 50 },
+            1024: { slidesPerView: 6, spaceBetween: 40 },
+          }}
+        //slidesPerView={6}
+        //spaceBetween={30}
+        loop={true}
+        
+        /*navigation={{
+          nextEl: ".button-next-slide",
+          prevEl: ".button-prev-slide",
+         }}*/
+        modules={[Pagination, Navigation]}
+        className="mySwiper"
+      >
+      
+          
+               
+                {tilawats?.map((tilawa:Tilawa) => 
+                   (
+                      <SwiperSlide 
+                         key={tilawa._id} 
+                  //onClick={()=> navigate(`/movie/${movie.id}`)} 
+                          className="swiper-img my-3 mx-3"
+                          >
+                    
+                      <img src={tilawa?.thumbnail} className="img-swiper" alt={tilawa?.title} />
+          
+                  
+                
+                        <div className="text-blok d-flex justify-content-center align-items-center w-100 h-20">
+                      {/*!bigImg && <h3 className="text-white fs-4 text-center title-swiper">{movie.name}</h3>*/}
+          
+                      </div>
+                      </SwiperSlide>
+                  
+                  
+               
+                        )
+                      )} 
+                
+                
+       
+        </Swiper>
+        ///
+         {tilawats?.map((tilawa:TilawaType) => {
+            return (
+              <img src={tilawa?.thumbnail} className="img-swiper" alt={tilawa?.title} />
+
+            )
+            })
+}

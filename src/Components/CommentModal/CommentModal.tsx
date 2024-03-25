@@ -1,38 +1,93 @@
-import  {useState ,ChangeEvent } from 'react';
+import { ChangeEvent, MouseEvent, useState } from 'react';
 
-import { IoAttach } from "react-icons/io5";
 import { GiPositionMarker } from "react-icons/gi";
+import { IoAttach } from "react-icons/io5";
 import { RiFolderUploadFill } from "react-icons/ri";
+
+import { useAddCommentMutation, useGetAllCommentsQuery } from '../../slice/tilawatApiSlice.ts';
 
 //import './IconStyles.css';
 
-import "./CommentModal.css"
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { ClipLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import { RootState } from '../../store/store.ts';
+import "./CommentModal.css";
+import Comments from './Comments.tsx';
 
 
 
 const CommentModal = () => {
 
+  const {id} = useParams();
+  const { userInfo } = useSelector((state: RootState) => state.auth);
+//console.log(userInfo);
+
+  const {data:comments,error, isLoading, refetch} = useGetAllCommentsQuery(id)
+  console.log(comments);
+  const [addComment,{error:errorAddComment,isLoading:isLoadingAddComment}] = useAddCommentMutation()
+
+  {errorAddComment&& <p>{errorAddComment?.data?.message}</p>}
+
+  //const [text, setText] = useState<string[]>([])
    
-const [value, setValue] = useState<string>("")
+const [text, setText] = useState<string>("")
+const [showComments, setShowComments] = useState<boolean>(false)
 
 const textareaChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setValue(e.target.value)
-    
+    setText(e.target.value)
 }
 
+const handleAddComment = async(e: MouseEvent<HTMLButtonElement>) => {
+  try {
+     e.preventDefault()
+//setText([...value,value])
+   const data ={text}
+   //console.log(text);
+   
+   const newComment = await addComment({id,data}).unwrap()
+console.log(newComment);
+   if(newComment._id){
+       toast.success("تم اضافة التعليق بنجاح");
+       setText("")
+       refetch();
+     }else{
+      //toast.error("لم يتم اضافة التعليق");
+      console.log("لم يتم اضافة التعليق");
+     }
+
+  } catch (error) {
+    console.log(error);
+  }
+  
+}
+
+const handleShowComments = () => {
+  console.log("show all Comment");
+setShowComments(!showComments)
+}
+
+
   return (
-    <div className="">
-<div className="form-floating">
-        <textarea className="textarea-border mt-4 border-0" placeholder="أكتب تعليقات"  cols="90" rows="9" 
-        value={value}
+    <div className="d-">
+      <h1 className='fs-4 text-center text-dark'>التعليق</h1>
+      <div className="form-floating">
+        <textarea className="textarea-border form-control mt-4 py-5 border-0" placeholder="أكتب تعليقات"  style={{height:"100px"}}
+        value={text}
         onChange={textareaChangeHandler}
         ></textarea>
        
         <div className="d-flex justify-content-between">
-          <button type="button" className={value =="" ? "btn btn-secondary mt-3" : "btn btn-dark mt-3"} 
-          onClick={()=>setValue("")}
+          <button 
+          type="button" 
+          className={text =="" ? "btn btn-secondary mt-3" : "btn btn-dark mt-3"} 
+          onClick={handleAddComment}
           
-          >أضف التعليق</button>
+           > 
+          
+          {isLoadingAddComment ? "جاري اضافة التعليقات": "التعليقات"}
+          </button>
           
           <div className="icon-modal d-flex mt-3">
           <IoAttach size={25} className="custom-icon"/>
@@ -48,9 +103,32 @@ const textareaChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     </div>
     <div className="d-flex">
     <small className="text-secondary flex-start mt-3">تذكر أن المساهمات في هذا الموضوع يجب أن تخضع إلى<a href="" style={{textDecoration:"none"}}>سياسة الاستخدام .</a></small>
-  </div>
-  <div className="mt-4">
-    <p className="fs-2 text-center">لا يوجد تعليقات حاليا</p>
+  
+  
+  </div> 
+  <button 
+          type="button" 
+          className= "btn btn-dark mt-3 d-flex flex-row-reverse"
+          onClick={handleShowComments}
+          
+           > 
+          
+          {isLoadingAddComment ? <><ClipLoader color="#36d7b7"/> "جاري عرض التعليقات "</>: "عرض التعليقات"}
+  </button>
+  <div className="mt-4 overflow-y-auto">
+ 
+      
+      {error && <p className='text-danger'>{error.data?.message || error.error}</p>}
+      {isLoading && <ClipLoader color="#36d7b7"/>}
+
+      {showComments && 
+
+      !isLoading && comments && <Comments comments={comments}/>
+      }
+     
+    
+   
+      
   </div>
 
     </div>

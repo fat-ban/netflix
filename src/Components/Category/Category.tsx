@@ -1,53 +1,60 @@
-import {useState,useEffect} from 'react'
-import "./Category.css"
+import "./Category.css";
 //route
-import { useNavigate } from 'react-router-dom';
 
 //import categories from '../../../Categories-endpoint';
-//type
-import { movieType } from '../../../Type'
+
+
+//https://www.elbalad.news/3401045///video tilawat
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import axios from "../../../axios";
+//
 
 // Import Swiper styles
 import 'swiper/css';
 //import 'swiper/css/effect-coverflow';
-import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-//spinner
-import FadeLoader from "react-spinners/ClipLoader";
+import 'swiper/css/pagination';
+
 
 
 // import required modules
-import {Pagination,Navigation } from 'swiper/modules';
+import { Navigation, Pagination } from 'swiper/modules';
+//type
+import { useNavigate } from "react-router-dom";
+import { TilawaType } from "../../../Type";
+//spinner
+
+
+// import required modules
 //icons
 //import {MdOutlineArrowForwardIos} from 'react-icons/md';
 //import {MdOutlineArrowBackIos} from 'react-icons/md';
 
-const URL = "https://image.tmdb.org/t/p/original";
+//const URL = "https://image.tmdb.org/t/p/original";
 
 interface originProps{
-  movieShow:string;
-//urlImg:string;
-//backdrop_path:string;
-title:string;
-bigImg:boolean;
+  readername: string;
+  tilawats: TilawaType[];
 }
 
 
-const Category = ({movieShow,title,bigImg}:originProps) => {
+const Category = ({
+
+  readername,
+  tilawats
+ 
+}:originProps) => {
 
   const navigate = useNavigate()
 
     //console.log(urlImg)
-    const [movieCategory, setMovieCategory] = useState<movieType[]>([])
-    const [loading, setLoading] = useState<boolean>(true)
-//console.log(movieShow)
+   // const [movieCategory, setMovieCategory] = useState<Tilawa[]>([])
+    //const [loading, setLoading] = useState<boolean>(true)
+console.log(tilawats)
 
-const fetchMovieCategory= async()=>{
+/*const fetchMovieCategory= async()=>{
   try {
       const result = await axios.get(movieShow)
   //
@@ -69,36 +76,23 @@ setLoading(false)
     
     fetchMovieCategory()
     
-  }, [])
+  }, [])*/
 
 
 
   return (
-    <section className="section-category" style={ bigImg? {height:"40vh",backgroundColor:"#000"}:{height:"65vh",backgroundColor:"#000"}}>
+    <section className="section-category" 
+    //style={ bigImg? {height:"40vh",backgroundColor:"#000"}:{height:"65vh",backgroundColor:"#000"}}
+    >
       <div className="container-fluid">
         <div className="row">
          
-            <h1 className="origin-title text-white my-3">{title}</h1>
+            <h1 className="origin-title text-dark my-3">{readername}</h1>
         </div>
-     </div>
+      </div>
         <div className="row ">
           
-        {loading ?(
-         
-          <FadeLoader
-          color="#36d7b7"
-          //loading={loading}
-          //cssOverride={override}
-          //size={150}
-          height={25}
-          width={15}
-          aria-label="Loading Spinner"
-          data-testid="loader"
-          className="me-5"
-        />
-        
-        ):(
-          <Swiper
+        <Swiper
           breakpoints={{
             320: { slidesPerView: 2, spaceBetween: 80 },
             480: { slidesPerView: 3, spaceBetween: 150 },
@@ -116,29 +110,37 @@ setLoading(false)
         modules={[Pagination, Navigation]}
         className="mySwiper"
       >
-            {movieCategory?.map(movie=>{
-                return(
-                     
-        <SwiperSlide key={movie.id} onClick={()=> navigate(`/movie/${movie.id}`)} className="swiper-img my-3 mx-3">
-          
-            <img src={!bigImg ? `${URL}${movie?.poster_path}`: `${URL}${movie?.backdrop_path}`} className="img-swiper" alt="{movie.title}" />
-
-        
       
-           <div className="text-blok d-flex justify-content-center align-items-center w-100 h-20">
-            {/*!bigImg && <h3 className="text-white fs-4 text-center title-swiper">{movie.name}</h3>*/}
-
-       </div>
-        </SwiperSlide>
-        
-        
-     
-                )
-            })}
-           
-        </Swiper>
-        )}
           
+               
+                {tilawats?.length > 0 && tilawats?.map((tilawa:TilawaType) => 
+                   (
+                      <SwiperSlide 
+                         key={tilawa._id} 
+                        onClick={()=> navigate(`/tilawat/${tilawa._id}`)} 
+                          className="swiper-img my-3 mx-3"
+                          >
+                    
+                      <img src={tilawa?.thumbnail} className="img-swiper" alt={tilawa?.title} />
+          
+                  
+                
+                        <div className="text-blok d-flex justify-content-center align-items-center w-100 h-20">
+                      {/*!bigImg && <h3 className="text-white fs-4 text-center title-swiper">{movie.name}</h3>*/}
+          
+                      </div>
+                      </SwiperSlide>
+                  
+                  
+               
+                        )
+                      )} 
+                 {tilawats?.length === 0 && <h3 className="origin-title text-dark my-3">لا يوجد تلاوات حاليا</h3>}     
+                
+                
+       
+        </Swiper>
+         
         </div>
         
      

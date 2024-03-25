@@ -1,0 +1,12 @@
+.signin{
+   position: relative; 
+}
+.signin::after{
+    content: "";
+position: absolute;
+top: 0;
+right: 0;
+height: 100vh;
+width: 100%;
+background-color: rgba(0, 0,0 , 0.6);
+}

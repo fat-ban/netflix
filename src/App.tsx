@@ -1,14 +1,17 @@
 
-import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import './App.css';
+
 //router
-import {createBrowserRouter,createRoutesFromElements,RouterProvider,Route } from "react-router-dom"
+import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
 //pages
-import Layout from './Pages/Layout/Layout';
 import Home from './Pages/Home/Home';
-import MovieDetail from './Pages/MovieDetail/MovieDetail';
+import Layout from './Pages/Layout/Layout';
+import SignIn from './Pages/SignIn/SignIn';
 import SignUp from "./Pages/SignUp/SignUp";
+import TilawaDetail from './Pages/TilawaDetail/TilawaDetail';
+
 
 //https://netflix-arabic-clone.vercel.app/
 
@@ -18,8 +21,9 @@ function App() {
       <Route  path="/" element={<Layout/>}>
 
         <Route index path="/" element={<Home/>}/>
-        <Route  path="/movie/:id" element={<MovieDetail/>}/>
+        <Route  path="/tilawat/:id" element={<TilawaDetail/>}/>
         <Route  path="/signup" element={<SignUp/>}/>
+        <Route  path="/signin" element={<SignIn/>}/>
 
       </Route>
     )

@@ -1,38 +1,42 @@
-export type movieType ={
-adult?: boolean;
-backdrop_path: string;
-id:number;
-overview: string;
-popularity:number;
-poster_path:string;
-release_date?:number; 
-vote_average:number;
-vote_count:number;
-title:string;
-original_title:string;
-original_name?:string;
-original_language:string;
-genres:Array<genreType>;
-
-name:string;
+export interface TilawaType {
+    _id: string;
+    reader: Reader;
+    user: User;
+    title: string;
+    description: string;
+    thumbnail:string;
+    banner: string;
+    url: string;
+    reviews:ReviewsType[];
+    total_reviews: number;
+    translations: Translation[];
+    comments:[];
 }
-export type movieOriginType={
-backdrop_path:string;
-first_air_date:string; 
-genres:Array<number>;
-id:number;
-name:string;
-origin_country:Array<string>;
-original_language:string;
-original_name:string; 
-overview:string;
-popularity:number;
-poster_path:string;
-vote_average:number;
-vote_count:number;
-
+export interface User {
+    _id: string;
+    username: string;
+    email:string;
+    isAdmin: boolean;
 }
-export type genreType={
-    id:number;
-    name:string;
+
+export interface Reader {
+    _id: string;
+    name: string;
+    tilawat: TilawaType [];
+}
+
+export interface Translation {
+    language: string;
+}
+export interface commentType {
+    //_id:string;
+    tilawat:TilawaType;
+    user:User;
+    text:string;
+}
+
+export interface ReviewsType {
+user:User;
+tilawa:TilawaType;
+review:number;
 }
